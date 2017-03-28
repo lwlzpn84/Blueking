@@ -2,13 +2,16 @@
 
 from common.mymako import render_mako_context
 
-
-def home(request):
+def index(request):
     """
     首页
     """
-    return render_mako_context(request, '/home_application/index.html')
-
+    return render_mako_context(request, '/home_application/opsplatform/index.html')
+def test(request):
+    """
+    首页
+    """
+    return render_mako_context(request, '/home_application/opsplatform/test.html')
 
 def dev_guide(request):
     """
