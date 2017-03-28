@@ -7,6 +7,7 @@ def index(request):
     首页
     """
     return render_mako_context(request, '/home_application/opsplatform/index.html')
+    
 def test(request):
     """
     首页
