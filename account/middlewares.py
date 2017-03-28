@@ -19,6 +19,6 @@ class LoginMiddleware(object):
             request.user = user
             get_csrf_token(request)
             return None
-
+        print 'ssssssssssssssssssssss'
         account = Account()
         return account.redirect_login(request)
