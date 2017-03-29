@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>INSPINIA | Dashboard</title>
+    <title>OpsPlatform | Dashboard</title>
 
     <link href="${STATIC_URL}opsplatform/css/bootstrap.min.css" rel="stylesheet">
     <link href="${STATIC_URL}opsplatform/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -43,20 +43,20 @@
                             IN+
                         </div>
                     </li>
-                    <li>
-                        <a href="${SITE_URL}"><i class="fa fa-laptop"></i> <span class="nav-label">首页</span></a>
-                    </li>
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="active"><a href="${SITE_URL}test/">Dashboard v.1</a></li>
-                        
-                        </ul>
+                 
+                     <li>  <!-- 默认为主页 -->
+                        <a href="${SITE_URL}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                     </li>
                     
-
+                     <li>
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">资产管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="${SITE_URL}server_list/">服务器列表</a></li>
+                   
+                        </ul>
+                    </li>
                     <li>
-                        <a href="grid_options.html"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a>
+                        <a href=""><i class="fa fa-laptop"></i> <span class="nav-label">游戏服维护</span></a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
@@ -137,19 +137,5 @@
     <!-- Toastr -->
     <script src="${STATIC_URL}opsplatform/js/plugins/toastr/toastr.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            setTimeout(function() {
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 2000
-                };
-                toastr.success( 'Welcome to OpsPlatform');
-
-            }, 1300);
-        });
-    </script>
 </body>
 </html>

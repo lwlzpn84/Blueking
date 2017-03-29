@@ -51,3 +51,18 @@ def get_time():
     execute_task()
     now = datetime.datetime.now()
     logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))
+
+
+
+@periodic_task(run_every=crontab(minute='*/5', hour='*', day_of_week="*"))
+def get_hostinfo():
+    """
+    celery 周期任务示例
+
+    run_every=crontab(minute='*/5', hour='*', day_of_week="*")：每 5 分钟执行一次任务
+    periodic_task：程序运行时自动触发周期任务
+    """
+    print 'ok'
+    now = datetime.datetime.now()
+    logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))
+

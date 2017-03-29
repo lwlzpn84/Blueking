@@ -34,6 +34,7 @@ BROKER_URL_DEV = 'amqp://guest:guest@127.0.0.1:5672/'
 # TOCHANGE 调用celery任务的文件路径, List of modules to import when celery starts.
 CELERY_IMPORTS = (
     'home_application.celery_tasks',
+    'home_application.my_task',
 )
 
 # ==============================================================================
@@ -109,6 +110,7 @@ INSTALLED_APPS = (
     'app_control',
     'account',
     'home_application',
+    'saltapi'
 )
 
 # ==============================================================================
