@@ -9,4 +9,6 @@ urlpatterns = patterns('home_application.views',
     # 服务器列表
     (r'^server_list/$', 'server_list'),
 
+    # 删除主机
+    (r'^delete_server/$', 'delete_server'),
 )
