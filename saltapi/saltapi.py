@@ -6,9 +6,9 @@ requests.packages.urllib3.disable_warnings()
 class SaltApi(object):
     """docstring for SaltApi"""
     def __init__(self):
-        self.__user = "saltapi"
-        self.__password = "L3OqVjVWuuWVjVq03L"
-        self.__salt_url = "https://121.43.232.249:51341"
+        self.__user = ""
+        self.__password = ""
+        self.__salt_url = ""
         self.__token_id = self.get_saltapi_token()
        
 
