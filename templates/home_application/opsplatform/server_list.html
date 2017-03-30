@@ -50,7 +50,7 @@
                         <td>${dd['hostname']}</td>
                         <td>${dd['private_ip']}</td>
                         <td>${dd['public_ip']}</td>
-                        <td>${dd['mem_total']}</td>
+                        <td>${dd['mem_total']} M</td>
                         <td>${dd['cpu_type']}</td>
                         <td>${dd['num_cpus']}</td>
                         <td>${dd['os_release']}</td>
@@ -81,13 +81,14 @@
       title: "您确定要删除主机"  + hostname + "？",
       text: "删除后将无法恢复，请谨慎操作！",
       type: "warning",
+       
       showCancelButton: true,
       showLoaderOnConfirm: true,
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "是的，删除它",
       cancelButtonText: "我在想想吧...",
       closeOnConfirm: false,
-      closeOnCancel: true  //关闭取消过后显示的的提示
+      closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示
     },
       function(isConfirm){
 
@@ -95,7 +96,6 @@
         $.ajax ({
                 type:'post',
                 url:"${SITE_URL}delete_server/?host="+hostname,
-
                 success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
                     if (res.result) {
                         swal(res.message, "Your imaginary file has been deleted.", "success");
@@ -105,7 +105,6 @@
                         swal(res.message, "Your imaginary file is safe :)", "error");
                     }
                 }
-                
             });           
       } 
       else {
@@ -144,10 +143,6 @@
           language: language //汉化
         });
         </script>
-        <script type="text/javascript">
-        $("#btn-danger").click(function(){
-          $("p").slideToggle();
-        });
-    </script>
+   
 </%block>
 

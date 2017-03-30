@@ -70,7 +70,6 @@ def delete_server(request):
     try:
         Hostinfo.objects.filter(hostname=delete_host).delete()
         result = {'result': True, 'message': u"删除主机 %s 成功." % delete_host}
-        
     except Exception, e:
         logger.error(u"删除纪录失败，%s" % e)
         result = {'result': False, 'message': u"删除纪录失败，%s" % e}
