@@ -10,7 +10,7 @@ class SaltApi(object):
         self.__password = ""
         self.__salt_url = ""
         self.__token_id = self.get_saltapi_token()
-       
+
 
     def get_saltapi_token(self):
         '''

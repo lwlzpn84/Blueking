@@ -6,12 +6,16 @@ from saltapi.saltapi import SaltApi
 from django.http import HttpResponse
 from models import Hostinfo
 import json
+from blueking.component.shortcuts import get_client_by_request
+from django.conf import settings
+
 def index(request):
     """
     首页
     """
     return render_mako_context(request, '/home_application/opsplatform/index.html')
 
+################ SaltAPI测试 ##################
 def get_server_info(request):
     '''
     @note: 通过saltapi获取所有minion主机的服务器信息，填入写入数据库中
@@ -50,8 +54,6 @@ def server_list(request):
     """
     @note: 服务器列表
     """
-
-
     # # 从数据库中读取
     host_list = Hostinfo.objects.all()   
     data = []
@@ -74,3 +76,24 @@ def delete_server(request):
         logger.error(u"删除纪录失败，%s" % e)
         result = {'result': False, 'message': u"删除纪录失败，%s" % e}
     return render_json(result)
+
+
+################ for test study ##################
+@csrf_exempt
+def esb_test(request):
+    '''
+    @note: 蓝鲸体系api调用 执行执行任务 用到的前端文件esb_test.html
+    '''
+    client = get_client_by_request(request)
+    kwargs = {  # 据说前面三个参数无需传入
+        "app_code": settings.APP_ID,
+        "app_secret": settings.APP_TOKEN,
+        "bk_token": request.COOKIES['bk_token'], # 通过cookie获取到bk_token
+        "task_id": 1,  # 作业ID
+        "app_id": 2,   # 业务ID
+    }
+    result = client.job.execute_task(kwargs)
+    message = result.get('message')
+    if result['result']:
+        return render_json({'result': True, 'message': message or u'执行成功'})
+    return render_json({'result': True, 'message': message or u'执行失败'})
