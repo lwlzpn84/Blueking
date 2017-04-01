@@ -1,0 +1,42 @@
+<%inherit file="base.html"/>
+<%block name="content">
+<link href="${STATIC_URL}opsplatform/css/dataTables.bootstrap.css" rel="stylesheet"/>
+<link href="${STATIC_URL}opsplatform/css/bk.css?v=1.0.1" rel="stylesheet">
+<script src="${STATIC_URL}opsplatform/js/jquery-1.10.2.min.js"></script>
+<script src="${STATIC_URL}opsplatform/js/jquery.dataTables.js"></script>
+<script src="${STATIC_URL}opsplatform/js/dataTables.bootstrap.js"></script>
+<script src="${STATIC_URL}opsplatform/js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${STATIC_URL}opsplatform/css/sweetalert.css">
+<script src="${STATIC_URL}js/csrftoken.js"></script>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                    
+                        <div class="ibox-content">
+                            <div id="ct-chart1" class="ct-perfect-fourth"></div>
+                             <form class="form-vertical p15">
+                        <div class="form-group ">
+                            <p>请选择你要执行的操作:</p>
+                            <button type="button" class="king-btn mr10  king-success">执行任务1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+<script>
+    $('.king-success').click(function () {
+        $.post('esb_test/', function (data) {
+            if(data['result']){
+                swal(data['message'], "^o^", "success");
+
+            }else{
+                swal(data['message'], "Your imaginary file has been deleted.", "error");
+            }
+        })
+    })
+</script>
+   
+</%block>
+
