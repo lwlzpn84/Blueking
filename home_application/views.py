@@ -8,12 +8,12 @@ from models import Hostinfo
 import json
 from blueking.component.shortcuts import get_client_by_request
 from django.conf import settings
-
+import requests
 def index(request):
     """
     首页
     """
-    return render_mako_context(request, '/home_application/opsplatform/index.html')
+    return render_mako_context(request, '/home_application/opsplatform/esb_test.html')
 
 ################ SaltAPI测试 ##################
 def get_server_info(request):
@@ -82,18 +82,57 @@ def delete_server(request):
 @csrf_exempt
 def esb_test(request):
     '''
-    @note: 蓝鲸体系api调用 执行执行任务 用到的前端文件esb_test.html
+    @note: 蓝鲸体系组件调用 执行任务 用到的前端文件esb_test.html
     '''
-    client = get_client_by_request(request)
-    kwargs = {  # 据说前面三个参数无需传入
+    if request.method == 'POST':
+
+        client = get_client_by_request(request)
+        kwargs = {
+            "app_code": settings.APP_ID,
+            "app_secret": settings.APP_TOKEN,
+            # 通过cookie获取到bk_token
+            "bk_token": request.COOKIES['bk_token'],
+            "task_id": 1,  # 作业ID
+            "app_id": 2,   # 业务ID
+        }
+        result = client.job.execute_task(kwargs)
+        message = result.get('message')
+        if result['result']:
+            return render_json({'result': True, 'message': message or u'执行成功'})
+        return render_json({'result': False, 'message': message or u'执行失败'})
+    else:
+        pass
+
+
+def get_flask_api(request):
+    '''
+    @note: 应用中通过ESB组件调用Flask api
+    '''
+    # 自助接入后生成的组件地址
+    url="http://paas.sctux.com:80/api/c/self-service-api/dempapp/flask_api/"
+    kwargs = {
         "app_code": settings.APP_ID,
         "app_secret": settings.APP_TOKEN,
-        "bk_token": request.COOKIES['bk_token'], # 通过cookie获取到bk_token
-        "task_id": 1,  # 作业ID
-        "app_id": 2,   # 业务ID
+        # 通过cookie获取到bk_token
+        "bk_token": request.COOKIES['bk_token'],
+        # 业务ID
+        "app_id": 2,
     }
-    result = client.job.execute_task(kwargs)
-    message = result.get('message')
+    res = requests.get(url=url,params=kwargs).text
+    result = json.loads(res)
+    message = result['message']
+    content = result['content']
+
     if result['result']:
-        return render_json({'result': True, 'message': message or u'执行成功'})
-    return render_json({'result': True, 'message': message or u'执行失败'})
+        return render_json({'result': True,'data': content,'message': message or u'调取第三方接口Flask_Api成功'})
+    return render_json({'result': False, 'data': content,'message': message or u'调取第三方接口Flask_Api失败'})
+
+
+
+def self_api(request):
+    data = {
+        "code": 0,
+        "message": "this message from blueking diy api"
+
+    }
+    return render_json(data)

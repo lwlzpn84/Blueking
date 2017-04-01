@@ -12,8 +12,10 @@ urlpatterns = patterns('home_application.views',
     (r'^index/$', 'index'),
 
    # get saltapi token
-   (r'^get_token/$', 'get_token'),
+   (r'^self_api/$', 'self_api'),
 
+   # get_flask_api token
+   (r'^get_flask_api/$', 'get_flask_api'),
                        # 服务器列表
     (r'^server_list/$', 'server_list'),
 
