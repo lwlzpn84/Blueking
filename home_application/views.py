@@ -13,7 +13,7 @@ def index(request):
     """
     首页
     """
-    return render_mako_context(request, '/home_application/opsplatform/esb_test.html')
+    return render_mako_context(request, '/home_application/opsplatform/get_flask_api.html')
 
 ################ SaltAPI测试 ##################
 def get_server_info(request):
@@ -136,3 +136,28 @@ def self_api(request):
 
     }
     return render_json(data)
+
+
+
+################ for test study ##################
+
+def esb_test2(request):
+    '''
+    @note: 蓝鲸体系组件调用 执行任务 用到的前端文件esb_test.html
+    '''
+    client = get_client_by_request(request)
+    kwargs = {
+        "app_code": settings.APP_ID,
+        "app_secret": settings.APP_TOKEN,
+        # 通过cookie获取到bk_token
+        "bk_token": request.COOKIES['bk_token'],
+        "app_id": 2,   # 业务ID
+    }
+    result = client.my_app.get_flask_content(kwargs)
+    content = result['content']
+    message = result['message']
+    import time
+    time.sleep(10)
+    if result['result']:
+        return render_json({'result': True,'content': content,'message': message or u'调取第三方接口Flask_Api成功'})
+    return render_json({'result': False, 'content': content,'message': message or u'调取第三方接口Flask_Api失败'})

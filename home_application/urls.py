@@ -7,6 +7,7 @@ urlpatterns = patterns('home_application.views',
 
     # for esb test
     (r'^esb_test/$', 'esb_test'),
+    (r'^esb_test2/$', 'esb_test2'),
 
     # for index
     (r'^index/$', 'index'),
